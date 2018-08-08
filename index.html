@@ -219,7 +219,7 @@
 <p>The Java Development Kit (JDK), version 1.7 or higher</p>
 </li>
 <li>
-<p>A <a href="https://gradle.org/install">Gradle distribution</a>, version 4.7 or better</p>
+<p>A <a href="https://gradle.org/install">Gradle distribution</a>, version 4.9 or better</p>
 </li>
 <li>
 <p>Source code for an existing Gradle plugin. (Preferably your own).</p>
@@ -278,7 +278,7 @@ If you have never written a plugin, you can use the <a href="https://github.com/
 <div class="title">Figure 2. API keys is the third tab</div>
 </div>
 <div class="paragraph">
-<p>It is common practice to copy-paste the text into your <a href="https://docs.gradle.org/4.7/userguide/build_environment.html#properties">$HOME/.gradle/gradle.properties</a> file, but if you wish you can place it elsewhere. All that the plugin requires is that <code>gradle.publish.key</code> and <code>gradle.publish.secret</code> are available as project properties when the appropriate Plugin portal tasks are executed.</p>
+<p>It is common practice to copy-paste the text into your <a href="https://docs.gradle.org/4.9/userguide/build_environment.html#properties">$HOME/.gradle/gradle.properties</a> file, but if you wish you can place it elsewhere. All that the plugin requires is that <code>gradle.publish.key</code> and <code>gradle.publish.secret</code> are available as project properties when the appropriate Plugin portal tasks are executed.</p>
 </div>
 <div class="paragraph">
 <p>If you are concerned about placing your credentials in <code>gradle.properties</code>, investigate use of <a href="https://plugins.gradle.org/plugin/de.qaware.seu.as.code.credentials">Seauc Credentials plugin</a> or the <a href="https://plugins.gradle.org/plugin/nu.studer.credentials">Gradle Credentials plugin</a>.</p>
@@ -294,12 +294,21 @@ If you have never written a plugin, you can use the <a href="https://github.com/
 <div class="paragraph">
 <p>Add the Plugin Publishing Plugin to the <code>plugins</code> block.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">plugins {
     id 'java-gradle-plugin' <i class="conum" data-value="1"></i><b>(1)</b>
     id 'com.gradle.plugin-publish' version '0.10.0' <i class="conum" data-value="2"></i><b>(2)</b>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle.kts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">plugins {
+    `java-gradle-plugin` <i class="conum" data-value="1"></i><b>(1)</b>
+    id("com.gradle.plugin-publish") version "0.10.0"  <i class="conum" data-value="2"></i><b>(2)</b>
 }</code></pre>
 </div>
 </div>
@@ -323,13 +332,23 @@ If you have never written a plugin, you can use the <a href="https://github.com/
 <div class="paragraph">
 <p>Create a <code>pluginBundle</code> block in <code>build.gradle</code> and specify global information regarding your plugin. This helps other people browsing the portal find more information about your plugin and learn how to contribute to its development.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">pluginBundle {
     website = '&lt;substitute your project website&gt;' <i class="conum" data-value="1"></i><b>(1)</b>
     vcsUrl = '&lt;uri to project source repository&gt;' <i class="conum" data-value="2"></i><b>(2)</b>
     tags = ['default', 'tags', 'unless', 'overridden', 'in', 'plugin'] <i class="conum" data-value="3"></i><b>(3)</b>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle.kts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">pluginBundle {
+    website = "&lt;substitute your project website&gt;" <i class="conum" data-value="1"></i><b>(1)</b>
+    vcsUrl = "&lt;uri to project source repository&gt;" <i class="conum" data-value="2"></i><b>(2)</b>
+    tags = listOf("default", "tags", "unless", "overridden", "in", "plugin") <i class="conum" data-value="3"></i><b>(3)</b>
 }</code></pre>
 </div>
 </div>
@@ -352,7 +371,7 @@ If you have never written a plugin, you can use the <a href="https://github.com/
 <div class="paragraph">
 <p>Now specify the details of the plugin. This is done in a <code>plugins</code> block within the <code>pluginBundle</code> block. The most important part is the <code>id</code>, as that both uniquely identifies it on the Gradle Plugin Portal and prevents namespace clashes between different plugin authors. It should follow a domain namespace pattern i.e. <code>org.samples.greeting</code>. Substitute the values from this example with ones specific to your plugin. Take your time to think about good entries, as this information contributes to a better experience for people looking for specific plugins.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">gradlePlugin {
@@ -371,6 +390,30 @@ pluginBundle {
             description = '&lt;Good human-readable description of what your plugin is about&gt;' <i class="conum" data-value="5"></i><b>(5)</b>
             tags = ['individual', 'tags', 'per', 'plugin'] <i class="conum" data-value="6"></i><b>(6)</b>
             version = '1.2' <i class="conum" data-value="7"></i><b>(7)</b>
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle.kts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">gradlePlugin {
+    (plugins) { <i class="conum" data-value="1"></i><b>(1)</b>
+        "greetingsPlugin" { <i class="conum" data-value="2"></i><b>(2)</b>
+            id = "&lt;your plugin identifier&gt;" <i class="conum" data-value="3"></i><b>(3)</b>
+            implementationClass = "&lt;your plugin class&gt;"
+        }
+    }
+}
+pluginBundle {
+    (plugins) { <i class="conum" data-value="1"></i><b>(1)</b>
+        "greetingsPlugin" { <i class="conum" data-value="2"></i><b>(2)</b>
+            // id is captured from gradlePlugin extension block <i class="conum" data-value="3"></i><b>(3)</b>
+            displayName = "&lt;short displayable name for plugin&gt;" <i class="conum" data-value="4"></i><b>(4)</b>
+            description = "&lt;Good human-readable description of what your plugin is about&gt;" <i class="conum" data-value="5"></i><b>(5)</b>
+            tags = listOf("individual", "tags", "per", "plugin") <i class="conum" data-value="6"></i><b>(6)</b>
+            version = "1.2" <i class="conum" data-value="7"></i><b>(7)</b>
         }
     }
 }</code></pre>
@@ -423,7 +466,7 @@ Gradle 4.10 adds support for configuring <code>displayName</code> and <code>desc
 <div class="paragraph">
 <p>Think about what would be the correct metadata for your plugin and fill in the template appropriately. Here is an example of the <code>pluginBundle</code> configuration for the the <a href="https://github.com/gradle-guides/greeting-plugin-example">Greeting Plugin example</a>:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">pluginBundle {
@@ -441,11 +484,29 @@ Gradle 4.10 adds support for configuring <code>displayName</code> and <code>desc
 }</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle.kts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">pluginBundle {
+    // please change these URLs to point to your own website/repository
+    website = "http://www.gradle.org/"
+    vcsUrl = "https://github.com/gradle-guides/greeting-plugin-example"
+    tags = listOf("example", "template")
+
+    (plugins) {
+        "greetingsPlugin" {
+            displayName = "Greeting Plugin"
+            description = "Template for people to start their own plugin adventure"
+        }
+    }
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>As a second example of plugin configuration, consider the <a href="https://plugins.gradle.org/plugin/org.ysb33r.gradletest">GradleTest plugin</a> which is already published to the Gradle Plugin Portal.</p>
 </div>
-<div class="listingblock">
-<div class="title">build.gradle (for GradleTest project)</div>
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">pluginBundle {
     website     = 'https://github.com/ysb33r/gradleTest'
@@ -457,6 +518,24 @@ Gradle 4.10 adds support for configuring <code>displayName</code> and <code>desc
             displayName = 'Plugin for compatibility testing of Gradle plugins'
             description = 'A plugin that helps you test your plugin against a variety of Gradle versions'
             tags = ['testing','integrationTesting','compatibility']
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title">build.gradle.kts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">pluginBundle {
+    website     = "https://github.com/ysb33r/gradleTest"
+    vcsUrl      = "https://github.com/ysb33r/gradleTest.git"
+
+    (plugins) {
+        "gradletestPlugin" {
+            id = "org.ysb33r.gradletest"
+            displayName = "Plugin for compatibility testing of Gradle plugins"
+            description = "A plugin that helps you test your plugin against a variety of Gradle versions"
+            tags = listOf("testing", "integrationTesting", "compatibility")
         }
     }
 }</code></pre>
