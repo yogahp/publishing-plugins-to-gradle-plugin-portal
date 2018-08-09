@@ -219,7 +219,7 @@
 <p>The Java Development Kit (JDK), version 1.7 or higher</p>
 </li>
 <li>
-<p>A <a href="https://gradle.org/install">Gradle distribution</a>, version 4.9 or better</p>
+<p>A <a href="https://gradle.org/install">Gradle distribution</a>, version 4.10-rc-1 or better</p>
 </li>
 <li>
 <p>Source code for an existing Gradle plugin. (Preferably your own).</p>
@@ -278,7 +278,7 @@ If you have never written a plugin, you can use the <a href="https://github.com/
 <div class="title">Figure 2. API keys is the third tab</div>
 </div>
 <div class="paragraph">
-<p>It is common practice to copy-paste the text into your <a href="https://docs.gradle.org/4.9/userguide/build_environment.html#properties">$HOME/.gradle/gradle.properties</a> file, but if you wish you can place it elsewhere. All that the plugin requires is that <code>gradle.publish.key</code> and <code>gradle.publish.secret</code> are available as project properties when the appropriate Plugin portal tasks are executed.</p>
+<p>It is common practice to copy-paste the text into your <a href="https://docs.gradle.org/4.10-rc-1/userguide/build_environment.html#properties">$HOME/.gradle/gradle.properties</a> file, but if you wish you can place it elsewhere. All that the plugin requires is that <code>gradle.publish.key</code> and <code>gradle.publish.secret</code> are available as project properties when the appropriate Plugin portal tasks are executed.</p>
 </div>
 <div class="paragraph">
 <p>If you are concerned about placing your credentials in <code>gradle.properties</code>, investigate use of <a href="https://plugins.gradle.org/plugin/de.qaware.seu.as.code.credentials">Seauc Credentials plugin</a> or the <a href="https://plugins.gradle.org/plugin/nu.studer.credentials">Gradle Credentials plugin</a>.</p>
@@ -399,8 +399,8 @@ pluginBundle {
 <div class="title">build.gradle.kts</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">gradlePlugin {
-    (plugins) { <i class="conum" data-value="1"></i><b>(1)</b>
-        "greetingsPlugin" { <i class="conum" data-value="2"></i><b>(2)</b>
+    plugins { <i class="conum" data-value="1"></i><b>(1)</b>
+        create("greetingsPlugin") { <i class="conum" data-value="2"></i><b>(2)</b>
             id = "&lt;your plugin identifier&gt;" <i class="conum" data-value="3"></i><b>(3)</b>
             implementationClass = "&lt;your plugin class&gt;"
         }
