@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <title>Publishing Plugins to Gradle Plugin Portal</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
 <link crossorigin href="//assets.gradle.com" rel="preconnect">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,400i">
-<link rel="stylesheet" href="https://guides.gradle.org/css/asciidoctor.css">
-<link rel="stylesheet" href="https://guides.gradle.org/css/docs-blue-theme-4.8.1.css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://guides.gradle.org/css/docs-blue-theme-4.10.css">
 <link rel="apple-touch-icon" sizes="180x180" href="https://guides.gradle.org/icon/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="https://guides.gradle.org/icon/favicon-32x32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="https://guides.gradle.org/icon/favicon-16x16.png" sizes="16x16">
 <link rel="manifest" href="https://guides.gradle.org/icon/manifest.json">
 <link rel="shortcut icon" href="https://guides.gradle.org/icon/favicon.ico">
-<script defer src="https://guides.gradle.org/js/guides-4.8.js"></script>
+<script defer src="https://guides.gradle.org/js/guides-4.10.js"></script>
 <script defer src="https://guides.gradle.org/js/set-time-to-complete-text.js"></script>
 <script async src="https://guides.gradle.org/js/autotrack.js"></script>
 
@@ -167,17 +167,6 @@
     <div class="chapter">
 <div id="header">
 <h1>Publishing Plugins to Gradle Plugin Portal</h1>
-</div>
-<div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Sharing a plugin with others means publishing the artifact, along with specific metadata and in most cases the <code>pom.xml</code>, to any type of repository that is supported by Gradle. Sharing a plugin on a global scale requires using a well-known repository. The <a href="https://plugins.gradle.org">Gradle Plugin Portal</a> provides a centralized repository that is dedicated to Gradle plugins and which is also easily searchable.</p>
-</div>
-<div class="paragraph">
-<p>The <a href="https://plugins.gradle.org/plugin/com.gradle.plugin-publish">Plugin Publishing Plugin</a> provides a convenient DSL to publish to the Gradle Plugin Portal and thereby eliminating a large number of configuration steps that might otherwise be needed when publishing to different Maven repository. It also provides a number of checks to validate that your plugin meets the criteria for publishing to the Gradle Plugin Portal.</p>
-</div>
-</div>
 <div id="toc" class="toc">
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
@@ -191,6 +180,17 @@
 <li><a href="#next_steps">Next steps</a></li>
 <li><a href="#help_improve_this_guide">Help improve this guide</a></li>
 </ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sharing a plugin with others means publishing the artifact, along with specific metadata and in most cases the <code>pom.xml</code>, to any type of repository that is supported by Gradle. Sharing a plugin on a global scale requires using a well-known repository. The <a href="https://plugins.gradle.org">Gradle Plugin Portal</a> provides a centralized repository that is dedicated to Gradle plugins and which is also easily searchable.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://plugins.gradle.org/plugin/com.gradle.plugin-publish">Plugin Publishing Plugin</a> provides a convenient DSL to publish to the Gradle Plugin Portal and thereby eliminating a large number of configuration steps that might otherwise be needed when publishing to different Maven repository. It also provides a number of checks to validate that your plugin meets the criteria for publishing to the Gradle Plugin Portal.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -219,7 +219,7 @@
 <p>The Java Development Kit (JDK), version 1.7 or higher</p>
 </li>
 <li>
-<p>A <a href="https://gradle.org/install">Gradle distribution</a>, version 4.10-rc-1 or better</p>
+<p>A <a href="https://gradle.org/install">Gradle distribution</a>, version 4.10-rc-2 or better</p>
 </li>
 <li>
 <p>Source code for an existing Gradle plugin. (Preferably your own).</p>
@@ -278,7 +278,7 @@ If you have never written a plugin, you can use the <a href="https://github.com/
 <div class="title">Figure 2. API keys is the third tab</div>
 </div>
 <div class="paragraph">
-<p>It is common practice to copy-paste the text into your <a href="https://docs.gradle.org/4.10-rc-1/userguide/build_environment.html#properties">$HOME/.gradle/gradle.properties</a> file, but if you wish you can place it elsewhere. All that the plugin requires is that <code>gradle.publish.key</code> and <code>gradle.publish.secret</code> are available as project properties when the appropriate Plugin portal tasks are executed.</p>
+<p>It is common practice to copy-paste the text into your <a href="https://docs.gradle.org/4.10-rc-2/userguide/build_environment.html#properties">$HOME/.gradle/gradle.properties</a> file, but if you wish you can place it elsewhere. All that the plugin requires is that <code>gradle.publish.key</code> and <code>gradle.publish.secret</code> are available as project properties when the appropriate Plugin portal tasks are executed.</p>
 </div>
 <div class="paragraph">
 <p>If you are concerned about placing your credentials in <code>gradle.properties</code>, investigate use of <a href="https://plugins.gradle.org/plugin/de.qaware.seu.as.code.credentials">Seauc Credentials plugin</a> or the <a href="https://plugins.gradle.org/plugin/nu.studer.credentials">Gradle Credentials plugin</a>.</p>
@@ -339,6 +339,15 @@ If you have never written a plugin, you can use the <a href="https://github.com/
     website = '&lt;substitute your project website&gt;' <i class="conum" data-value="1"></i><b>(1)</b>
     vcsUrl = '&lt;uri to project source repository&gt;' <i class="conum" data-value="2"></i><b>(2)</b>
     tags = ['default', 'tags', 'unless', 'overridden', 'in', 'plugin'] <i class="conum" data-value="3"></i><b>(3)</b>
+    plugins { <i class="conum" data-value="1"></i><b>(1)</b>
+        greetingsPlugin {  <i class="conum" data-value="2"></i><b>(2)</b>
+            // id is captured from gradlePlugin extension block <i class="conum" data-value="3"></i><b>(3)</b>
+            displayName = '&lt;short displayable name for plugin&gt;' <i class="conum" data-value="4"></i><b>(4)</b>
+            description = '&lt;Good human-readable description of what your plugin is about&gt;' <i class="conum" data-value="5"></i><b>(5)</b>
+            tags = ['individual', 'tags', 'per', 'plugin'] <i class="conum" data-value="6"></i><b>(6)</b>
+            version = '1.2' <i class="conum" data-value="7"></i><b>(7)</b>
+        }
+    }
 }</code></pre>
 </div>
 </div>
@@ -349,6 +358,15 @@ If you have never written a plugin, you can use the <a href="https://github.com/
     website = "&lt;substitute your project website&gt;" <i class="conum" data-value="1"></i><b>(1)</b>
     vcsUrl = "&lt;uri to project source repository&gt;" <i class="conum" data-value="2"></i><b>(2)</b>
     tags = listOf("default", "tags", "unless", "overridden", "in", "plugin") <i class="conum" data-value="3"></i><b>(3)</b>
+    (plugins) { <i class="conum" data-value="1"></i><b>(1)</b>
+        "greetingsPlugin" { <i class="conum" data-value="2"></i><b>(2)</b>
+            // id is captured from gradlePlugin extension block <i class="conum" data-value="3"></i><b>(3)</b>
+            displayName = "&lt;short displayable name for plugin&gt;" <i class="conum" data-value="4"></i><b>(4)</b>
+            description = "&lt;Good human-readable description of what your plugin is about&gt;" <i class="conum" data-value="5"></i><b>(5)</b>
+            tags = listOf("individual", "tags", "per", "plugin") <i class="conum" data-value="6"></i><b>(6)</b>
+            version = "1.2" <i class="conum" data-value="7"></i><b>(7)</b>
+        }
+    }
 }</code></pre>
 </div>
 </div>
@@ -383,6 +401,9 @@ If you have never written a plugin, you can use the <a href="https://github.com/
     }
 }
 pluginBundle {
+    website = '&lt;substitute your project website&gt;' <i class="conum" data-value="1"></i><b>(1)</b>
+    vcsUrl = '&lt;uri to project source repository&gt;' <i class="conum" data-value="2"></i><b>(2)</b>
+    tags = ['default', 'tags', 'unless', 'overridden', 'in', 'plugin'] <i class="conum" data-value="3"></i><b>(3)</b>
     plugins { <i class="conum" data-value="1"></i><b>(1)</b>
         greetingsPlugin {  <i class="conum" data-value="2"></i><b>(2)</b>
             // id is captured from gradlePlugin extension block <i class="conum" data-value="3"></i><b>(3)</b>
@@ -407,6 +428,9 @@ pluginBundle {
     }
 }
 pluginBundle {
+    website = "&lt;substitute your project website&gt;" <i class="conum" data-value="1"></i><b>(1)</b>
+    vcsUrl = "&lt;uri to project source repository&gt;" <i class="conum" data-value="2"></i><b>(2)</b>
+    tags = listOf("default", "tags", "unless", "overridden", "in", "plugin") <i class="conum" data-value="3"></i><b>(3)</b>
     (plugins) { <i class="conum" data-value="1"></i><b>(1)</b>
         "greetingsPlugin" { <i class="conum" data-value="2"></i><b>(2)</b>
             // id is captured from gradlePlugin extension block <i class="conum" data-value="3"></i><b>(3)</b>
