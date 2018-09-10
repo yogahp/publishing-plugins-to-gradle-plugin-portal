@@ -338,7 +338,7 @@ If you have never written a plugin, you can use the <a href="https://github.com/
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">pluginBundle {
     website = '&lt;substitute your project website&gt;' <i class="conum" data-value="1"></i><b>(1)</b>
     vcsUrl = '&lt;uri to project source repository&gt;' <i class="conum" data-value="2"></i><b>(2)</b>
-    tags = ['default', 'tags', 'unless', 'overridden', 'in', 'plugin'] <i class="conum" data-value="3"></i><b>(3)</b>
+    tags = ['tags', 'for', 'your', 'plugins'] <i class="conum" data-value="3"></i><b>(3)</b>
 }</code></pre>
 </div>
 </div>
@@ -348,7 +348,7 @@ If you have never written a plugin, you can use the <a href="https://github.com/
 <pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">pluginBundle {
     website = "&lt;substitute your project website&gt;" <i class="conum" data-value="1"></i><b>(1)</b>
     vcsUrl = "&lt;uri to project source repository&gt;" <i class="conum" data-value="2"></i><b>(2)</b>
-    tags = listOf("default", "tags", "unless", "overridden", "in", "plugin") <i class="conum" data-value="3"></i><b>(3)</b>
+    tags = listOf("tags", "for", "your", "plugins") <i class="conum" data-value="3"></i><b>(3)</b>
 }</code></pre>
 </div>
 </div>
@@ -369,27 +369,18 @@ If you have never written a plugin, you can use the <a href="https://github.com/
 </table>
 </div>
 <div class="paragraph">
-<p>Now specify the details of the plugin. This is done in a <code>plugins</code> block within the <code>pluginBundle</code> block. The most important part is the <code>id</code>, as that both uniquely identifies it on the Gradle Plugin Portal and prevents namespace clashes between different plugin authors. It should follow a domain namespace pattern i.e. <code>org.samples.greeting</code>. Substitute the values from this example with ones specific to your plugin. Take your time to think about good entries, as this information contributes to a better experience for people looking for specific plugins.</p>
+<p>Now specify the details of the plugin. This is done in a <code>plugins</code> block within the <code>gradlePlugin</code> block. The most important part is the <code>id</code>, as that both uniquely identifies it on the Gradle Plugin Portal and prevents namespace clashes between different plugin authors. It should follow a domain namespace pattern i.e. <code>org.samples.greeting</code>. Substitute the values from this example with ones specific to your plugin. Take your time to think about good entries, as this information contributes to a better experience for people looking for specific plugins.</p>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">gradlePlugin {
     plugins { <i class="conum" data-value="1"></i><b>(1)</b>
-        greetingsPlugin {  <i class="conum" data-value="2"></i><b>(2)</b>
+        greetingsPlugin { <i class="conum" data-value="2"></i><b>(2)</b>
             id = '&lt;your plugin identifier&gt;' <i class="conum" data-value="3"></i><b>(3)</b>
-            implementationClass = '&lt;your plugin class&gt;'
-        }
-    }
-}
-pluginBundle {
-    plugins { <i class="conum" data-value="1"></i><b>(1)</b>
-        greetingsPlugin {  <i class="conum" data-value="2"></i><b>(2)</b>
-            // id is captured from gradlePlugin extension block <i class="conum" data-value="3"></i><b>(3)</b>
             displayName = '&lt;short displayable name for plugin&gt;' <i class="conum" data-value="4"></i><b>(4)</b>
             description = '&lt;Good human-readable description of what your plugin is about&gt;' <i class="conum" data-value="5"></i><b>(5)</b>
-            tags = ['individual', 'tags', 'per', 'plugin'] <i class="conum" data-value="6"></i><b>(6)</b>
-            version = '1.2' <i class="conum" data-value="7"></i><b>(7)</b>
+            implementationClass = '&lt;your plugin class&gt;'
         }
     }
 }</code></pre>
@@ -402,18 +393,9 @@ pluginBundle {
     plugins { <i class="conum" data-value="1"></i><b>(1)</b>
         create("greetingsPlugin") { <i class="conum" data-value="2"></i><b>(2)</b>
             id = "&lt;your plugin identifier&gt;" <i class="conum" data-value="3"></i><b>(3)</b>
-            implementationClass = "&lt;your plugin class&gt;"
-        }
-    }
-}
-pluginBundle {
-    (plugins) { <i class="conum" data-value="1"></i><b>(1)</b>
-        "greetingsPlugin" { <i class="conum" data-value="2"></i><b>(2)</b>
-            // id is captured from gradlePlugin extension block <i class="conum" data-value="3"></i><b>(3)</b>
             displayName = "&lt;short displayable name for plugin&gt;" <i class="conum" data-value="4"></i><b>(4)</b>
             description = "&lt;Good human-readable description of what your plugin is about&gt;" <i class="conum" data-value="5"></i><b>(5)</b>
-            tags = listOf("individual", "tags", "per", "plugin") <i class="conum" data-value="6"></i><b>(6)</b>
-            version = "1.2" <i class="conum" data-value="7"></i><b>(7)</b>
+            implementationClass = "&lt;your plugin class&gt;"
         }
     }
 }</code></pre>
@@ -427,11 +409,11 @@ pluginBundle {
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The name for each plugin block does not affect the plugin configuration, but needs to be unique for each plugin provided. Moreover, the names of the plugin in the <code>gradlePlugin</code> and <code>pluginBundle</code> extension blocks must match.</td>
+<td>The name for each plugin block does not affect the plugin configuration, but needs to be unique for each plugin provided.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The <code>id</code> specified in the <code>gradlePlugin</code> extension block is used for the plugin with the same name in the <code>pluginBundle</code> extension block.</td>
+<td>Set the unique <code>id</code> of the plugin.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -440,14 +422,6 @@ pluginBundle {
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
 <td>Set a description that will be displayed on the portal. Although this is optional, it provides useful information to people would might want to use your plugin. Please give careful thought to the value of this property.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Set tags that build script authors might use to search for plugin types. This can make your plugin easier to locate.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>By default the version from <code>project.version</code> will be used, but you can set your own version if required.</td>
 </tr>
 </table>
 </div>
@@ -458,7 +432,7 @@ pluginBundle {
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Gradle 4.10 adds support for configuring <code>displayName</code> and <code>description</code> in the <code>plugins</code> section of the <code>gradlePlugin</code> extension block. Thus, you only need to reiterate those plugins in the <code>pluginBundle</code> extension block for which you need to specify a custom <code>version</code> or custom <code>tags</code>.
+If you are publishing multiple plugins, please note that it&#8217;s possible to use custom tags and a custom version per plugin using the <code>pluginBundle</code> block. Please refer to the <a href="https://plugins.gradle.org/docs/publish-plugin">reference documentation of the Plugin Publishing Plugin</a> for an example.
 </td>
 </tr>
 </table>
@@ -474,11 +448,14 @@ Gradle 4.10 adds support for configuring <code>displayName</code> and <code>desc
     website = 'http://www.gradle.org/'
     vcsUrl = 'https://github.com/gradle-guides/greeting-plugin-example'
     tags = ['example', 'template']
-
+}
+gradlePlugin {
     plugins {
         greetingsPlugin {
+            id = 'org.samples.greeting'
             displayName = 'Greeting Plugin'
             description = 'Template for people to start their own plugin adventure'
+            implementationClass = 'org.example.greeting.GreetingPlugin'
         }
     }
 }</code></pre>
@@ -492,11 +469,14 @@ Gradle 4.10 adds support for configuring <code>displayName</code> and <code>desc
     website = "http://www.gradle.org/"
     vcsUrl = "https://github.com/gradle-guides/greeting-plugin-example"
     tags = listOf("example", "template")
-
-    (plugins) {
-        "greetingsPlugin" {
+}
+gradlePlugin {
+    plugins {
+        create("greetingsPlugin") {
+            id = "org.samples.greeting"
             displayName = "Greeting Plugin"
             description = "Template for people to start their own plugin adventure"
+            implementationClass = "org.example.greeting.GreetingPlugin"
         }
     }
 }</code></pre>
@@ -509,15 +489,17 @@ Gradle 4.10 adds support for configuring <code>displayName</code> and <code>desc
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">pluginBundle {
-    website     = 'https://github.com/ysb33r/gradleTest'
-    vcsUrl      = 'https://github.com/ysb33r/gradleTest.git'
-
+    website = 'https://github.com/ysb33r/gradleTest'
+    vcsUrl = 'https://github.com/ysb33r/gradleTest.git'
+    tags = ['testing', 'integrationTesting', 'compatibility']
+}
+gradlePlugin {
     plugins {
         gradletestPlugin {
             id = 'org.ysb33r.gradletest'
             displayName = 'Plugin for compatibility testing of Gradle plugins'
             description = 'A plugin that helps you test your plugin against a variety of Gradle versions'
-            tags = ['testing','integrationTesting','compatibility']
+            implementationClass = 'org.ysb33r.gradle.gradletest.GradleTestPlugin'
         }
     }
 }</code></pre>
@@ -527,15 +509,17 @@ Gradle 4.10 adds support for configuring <code>displayName</code> and <code>desc
 <div class="title">build.gradle.kts</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-kotlin" data-lang="kotlin">pluginBundle {
-    website     = "https://github.com/ysb33r/gradleTest"
-    vcsUrl      = "https://github.com/ysb33r/gradleTest.git"
-
-    (plugins) {
-        "gradletestPlugin" {
+    website = "https://github.com/ysb33r/gradleTest"
+    vcsUrl = "https://github.com/ysb33r/gradleTest.git"
+    tags = listOf("testing", "integrationTesting", "compatibility")
+}
+gradlePlugin {
+    plugins {
+        create("gradletestPlugin") {
             id = "org.ysb33r.gradletest"
             displayName = "Plugin for compatibility testing of Gradle plugins"
             description = "A plugin that helps you test your plugin against a variety of Gradle versions"
-            tags = listOf("testing", "integrationTesting", "compatibility")
+            implementationClass = "org.ysb33r.gradle.gradletest.GradleTestPlugin"
         }
     }
 }</code></pre>
@@ -599,7 +583,7 @@ If you publish the example <code>GreetingPlugin</code> as-is, it will be rejecte
 <div class="ulist">
 <ul>
 <li>
-<p>Read the <a href="https://plugins.gradle.org/docs/publish-plugin">reference documentation for the Plugin Publishing Plugin</a>.</p>
+<p>Read the <a href="https://plugins.gradle.org/docs/publish-plugin">reference documentation of the Plugin Publishing Plugin</a>.</p>
 </li>
 </ul>
 </div>
